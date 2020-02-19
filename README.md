@@ -1,8 +1,8 @@
 # hello-world
 
-Simple http server responding "Hello World! from {NODE_IP}:{PORT}"
+Simple http server responding "Hello World! from {NODE_ID}:{PORT}"
 
-    docker run --rm -p 8090:8090 -e PORT=8090 -e NODE_IP=10.0.0.11 deepsvmwarecom/hello-world
+    docker run --rm -p 8090:8090 -e PORT=8090 -e NODE_ID=$(hostname) deepsvmwarecom/hello-world
 
 This will result in 
 
@@ -13,4 +13,4 @@ This will result in
 | ENV       | default value |
 |-----------|---------------|
 | PORT      | 8090          |
-| NODE_IP   | public ip     |
+| NODE_ID   | public ip     |

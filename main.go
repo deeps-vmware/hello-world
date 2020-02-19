@@ -8,7 +8,7 @@ import (
 )
 
 func index(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello World! from %s:%s\n", os.Getenv("NODE_IP"), os.Getenv("PORT"))
+	fmt.Fprintf(w, "Hello World! from %s:%s\n", os.Getenv("NODE_ID"), os.Getenv("PORT"))
 }
 
 func main() {
@@ -19,13 +19,14 @@ func main() {
 		os.Setenv("PORT", port)
 	}
 
-	nodeIP := os.Getenv("NODE_IP")
+	nodeIP := os.Getenv("NODE_ID")
 	if nodeIP == "" {
 		conn, _ := net.Dial("udp", "8.8.8.8:80")
 		defer conn.Close()
 		localAddr := conn.LocalAddr().(*net.UDPAddr)
 		nodeIP = localAddr.IP.String()
-		os.Setenv("NODE_IP", nodeIP)
+		os.Setenv("NODE_ID", nodeIP)
 	}
+	fmt.Printf("Hello World! from %s:%s\n", os.Getenv("NODE_ID"), os.Getenv("PORT"))
 	http.ListenAndServe(":"+port, nil)
 }

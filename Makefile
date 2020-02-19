@@ -9,4 +9,4 @@ build:
 	docker images
 
 docker: build
-	docker run --rm -p 8090:8090 -e PORT=8090 deepsvmwarecom/hello-world
+	docker run --rm -p 8090:8090 -e PORT=8090 -e NODE_ID=$(shell hostname) deepsvmwarecom/hello-world
