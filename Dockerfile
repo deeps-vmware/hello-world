@@ -10,4 +10,6 @@ FROM scratch
 
 COPY --from=builder /build/main .
 
+USER 65534
+
 ENTRYPOINT [ "./main" ]
