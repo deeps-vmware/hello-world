@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"io/ioutil"
 	"net"
 	"net/http"
-	"io/ioutil"
+	"os"
 )
 
 var count = 0
@@ -29,7 +29,6 @@ func getUpstream(w http.ResponseWriter) {
 	}
 }
 
-
 func main() {
 	http.HandleFunc("/", index)
 	port := os.Getenv("PORT")
@@ -47,7 +46,7 @@ func main() {
 		nodeID, _ = os.Hostname()
 		os.Setenv("NODE_ID", nodeID)
 	}
-	fmt.Printf("Hello World! from %s:%s\n", nodeID + " " + localAddr.IP.String(), os.Getenv("PORT"))
+	fmt.Printf("Hello World! from %s:%s\n", nodeID+" "+localAddr.IP.String(), os.Getenv("PORT"))
 	if os.Getenv("UPSTREAM") != "" {
 		fmt.Printf("Upstream: %s\n", os.Getenv("UPSTREAM"))
 	}
