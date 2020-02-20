@@ -4,7 +4,7 @@ run:
 	@go run main.go 
 
 build:
-	docker build . -t deepsvmwarecom/hello-world -t deepsvmwarecom/hello-world:0.1.0
+	docker build . -t deepsvmwarecom/hello-world
 	docker image prune -f
 	docker images
 
