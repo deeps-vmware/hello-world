@@ -7,8 +7,12 @@ import (
 	"net/http"
 )
 
+var count = 0
+
 func index(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "Hello World! from %s:%s\n", os.Getenv("NODE_ID"), os.Getenv("PORT"))
+	count = count + 1
+	fmt.Fprintf(w, "Accessed %d times\n", count)
 }
 
 func main() {

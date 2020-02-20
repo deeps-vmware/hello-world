@@ -9,6 +9,7 @@ Now you can hit the sever on localhost
 
     > curl localhost:8090
     Hello World! from 172.17.0.2:8090
+    Accessed 1 times
 
 ## defaults
 
@@ -24,3 +25,4 @@ You can override these as follows
 
     > curl localhost:8080
     Hello World! from my-server-01:80
+    Accessed 1 times
