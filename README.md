@@ -19,8 +19,8 @@ Now you can hit the sever on localhost
 
 You can override these as follows
 
-    > docker run --rm -p 8080:80 -e PORT=80 -e NODE_ID=my-server-01 deepsvmwarecom/hello-world
-    Hello World! from my-server-01:80
+    > docker run --rm -p 8080:8888 -e PORT=8888 -e NODE_ID=my-server-01 deepsvmwarecom/hello-world
+    Hello World! from my-server-01:8888
 
     > curl localhost:8080
-    Hello World! from my-server-01:80 (1)
+    Hello World! from my-server-01:8888 (1)
