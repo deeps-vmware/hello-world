@@ -1,5 +1,7 @@
 # hello-world
 
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/deepsvmwarecom/hello-world.svg)](https://hub.docker.com/r/deepsvmwarecom/hello-world/) [![Docker Pulls](https://img.shields.io/docker/pulls/deepsvmwarecom/hello-world.svg)](https://hub.docker.com/r/deepsvmwarecom/hello-world/)
+
 Simple http server responding "Hello World! from {NODE_ID}:{PORT}"
 
     > docker run --rm -p 8090:8090 deepsvmwarecom/hello-world
