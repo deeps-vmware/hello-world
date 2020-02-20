@@ -17,6 +17,7 @@ Now you can hit the sever on localhost
 | PORT      | 8090          |
 | NODE_ID   | hostname      |
 | UPSTREAM  | nil           |
+| TIMEOUT   | 5 (seconds)   |
 
 You can override these as follows
 
@@ -32,7 +33,7 @@ An upstream http GET call is made if env `UPSTREAM` is provided
 
     > docker run --rm -p 8091:8888 -e PORT=8888 -e NODE_ID=my-server-02 -e UPSTREAM=http://172.17.0.2:8888 deepsvmwarecom/hello-world
     Hello World! from my-server-02 172.17.0.3:8888
-    Upstream: http://172.17.0.2:8888
+    Upstream: http://172.17.0.2:8888 Timeout: 5s
 
     > curl localhost:8091
     Hello World! from my-server-02:8888 (1)
