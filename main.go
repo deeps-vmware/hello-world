@@ -10,9 +10,8 @@ import (
 var count = 0
 
 func index(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Hello World! from %s:%s\n", os.Getenv("NODE_ID"), os.Getenv("PORT"))
 	count = count + 1
-	fmt.Fprintf(w, "Accessed %d times\n", count)
+	fmt.Fprintf(w, "Hello World! from %s:%s (%d)\n", os.Getenv("NODE_ID"), os.Getenv("PORT"), count)
 }
 
 func main() {
