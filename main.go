@@ -8,12 +8,26 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"sync/atomic"
 )
 
-var count = 0
+// Counter ...
+type Counter int32
+
+func (c *Counter) increment() int32 {
+	var next int32
+	for {
+		next = int32(*c) + 1
+		if atomic.CompareAndSwapInt32((*int32)(c), int32(*c), next) {
+			return next
+		}
+	}
+}
+
+var counter Counter
 
 func index(w http.ResponseWriter, req *http.Request) {
-	count = count + 1
+	count := counter.increment()
 	fmt.Fprintf(w, "Hello World! from %s:%s (%d)\n", os.Getenv("NODE_ID"), os.Getenv("PORT"), count)
 	getUpstream(w)
 }
