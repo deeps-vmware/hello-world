@@ -7,9 +7,15 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"time"
 	"sync/atomic"
+	"time"
+
+	log "github.com/sirupsen/logrus"
 )
+
+func init() {
+	log.SetFormatter(&log.JSONFormatter{})
+}
 
 // Counter ...
 type Counter int32
@@ -76,6 +82,13 @@ func main() {
 	if os.Getenv("UPSTREAM") != "" {
 		fmt.Printf("Upstream: %s Timeout: %ss\n", os.Getenv("UPSTREAM"), os.Getenv("TIMEOUT"))
 	}
+	log.WithFields(log.Fields{
+		"nodeID":   os.Getenv("NODE_ID"),
+		"ip":       localAddr.IP.String(),
+		"port":     os.Getenv("PORT"),
+		"upstream": os.Getenv("UPSTREAM"),
+		"timeout":  os.Getenv("TIMEOUT"),
+	}).Info("Hello World!")
 
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
