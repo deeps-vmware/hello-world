@@ -9,4 +9,4 @@ build:
 	docker images
 
 docker: build
-	docker run --rm -p 8090:8090 deepsvmwarecom/hello-world
+	docker run --rm -p 8090:8090 -e STATSD_ADDR=host.docker.internal:8125 deepsvmwarecom/hello-world

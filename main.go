@@ -10,6 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"gopkg.in/alexcesaro/statsd.v2"
+
 	log "github.com/sirupsen/logrus"
 )
 
@@ -39,11 +41,15 @@ func (c *Counter) increment() int32 {
 }
 
 var counter Counter
+var telemetry *statsd.Client
 
 func index(w http.ResponseWriter, req *http.Request) {
+	timing := telemetry.NewTiming()
+	telemetry.Increment("hello-world.request.count")
 	count := counter.increment()
 	fmt.Fprintf(w, "Hello World! from %s:%s (%d)\n", os.Getenv("NODE_ID"), os.Getenv("PORT"), count)
 	getUpstream(w)
+	timing.Send("hello-world.response.time")
 }
 
 func getUpstream(w http.ResponseWriter) {
@@ -66,6 +72,11 @@ func getUpstream(w http.ResponseWriter) {
 }
 
 func main() {
+	if len(os.Getenv("STATSD_ADDR")) == 0 {
+		os.Setenv("STATSD_ADDR", ":8125")
+	}
+	telemetry, _ = statsd.New(statsd.Address(os.Getenv("STATSD_ADDR")))
+
 	http.HandleFunc("/", index)
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -91,11 +102,12 @@ func main() {
 		fmt.Printf("Upstream: %s Timeout: %ss\n", os.Getenv("UPSTREAM"), os.Getenv("TIMEOUT"))
 	}
 	log.WithFields(log.Fields{
-		"nodeID":   os.Getenv("NODE_ID"),
-		"ip":       localAddr.IP.String(),
-		"port":     os.Getenv("PORT"),
-		"upstream": os.Getenv("UPSTREAM"),
-		"timeout":  os.Getenv("TIMEOUT"),
+		"nodeID":     os.Getenv("NODE_ID"),
+		"ip":         localAddr.IP.String(),
+		"port":       os.Getenv("PORT"),
+		"upstream":   os.Getenv("UPSTREAM"),
+		"timeout":    os.Getenv("TIMEOUT"),
+		"statsdAddr": os.Getenv("STATSD_ADDR"),
 	}).Info("Hello World!")
 
 	err := http.ListenAndServe(":"+port, nil)
