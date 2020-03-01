@@ -1,6 +1,6 @@
 # hello-world
 
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/deepsvmwarecom/hello-world.svg)](https://hub.docker.com/r/deepsvmwarecom/hello-world/) [![Docker Pulls](https://img.shields.io/docker/pulls/deepsvmwarecom/hello-world.svg)](https://hub.docker.com/r/deepsvmwarecom/hello-world/)
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/deepsvmwarecom/hello-world.svg)](https://hub.docker.com/r/deepsvmwarecom/hello-world/) [![Docker Pulls](https://img.shields.io/docker/pulls/deepsvmwarecom/hello-world.svg)](https://hub.docker.com/r/deepsvmwarecom/hello-world/) [![Go Report Card](https://goreportcard.com/badge/github.com//deeps-vmware/hello-world)](https://goreportcard.com/report/github.com/deeps-vmware/hello-world)
 
 Simple http server responding "Hello World! from {NODE_ID}:{PORT}"
 
